@@ -44,7 +44,7 @@ extension CustomServerViewController: NavigationViewControllerDelegate {
         // Here, we are simulating a custom server.
         let routeOptions = NavigationRouteOptions(waypoints: [Waypoint(location: location), self.routeOptions.waypoints.last!])
         Directions.shared.calculate(routeOptions) { (waypoints, routes, error) in
-            guard let routeCoordinates = routes?.first?.coordinates, error == nil else {
+            guard let routeShape = routes?.first?.shape, error == nil else {
                 print(error!.localizedDescription)
                 return
             }
@@ -53,7 +53,7 @@ extension CustomServerViewController: NavigationViewControllerDelegate {
             // ❗️IMPORTANT❗️
             // Use `Directions.calculateRoutes(matching:completionHandler:)` for navigating on a map matching response.
             //
-            let matchOptions = NavigationMatchOptions(coordinates: routeCoordinates)
+            let matchOptions = NavigationMatchOptions(coordinates: routeShape.coordinates)
             
             // By default, each waypoint separates two legs, so the user stops at each waypoint.
             // We want the user to navigate from the first coordinate to the last coordinate without any stops in between.

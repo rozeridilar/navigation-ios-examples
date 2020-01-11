@@ -79,10 +79,10 @@ class ViewController: UIViewController, MGLMapViewDelegate {
 
     // #-code-snippet: navigation draw-route-swift
     func drawRoute(route: Route) {
-        guard route.coordinateCount > 0 else { return }
+        guard let routeShape = route.shape, routeShape.coordinates.count > 0 else { return }
         // Convert the route’s coordinates into a polyline
-        var routeCoordinates = route.coordinates!
-        let polyline = MGLPolylineFeature(coordinates: &routeCoordinates, count: route.coordinateCount)
+        var routeCoordinates = routeShape.coordinates
+        let polyline = MGLPolylineFeature(coordinates: &routeCoordinates, count: UInt(routeCoordinates.count))
 
         // If there's already a route line on the map, reset its shape to the new route
         if let source = mapView.style?.source(withIdentifier: "route-source") as? MGLShapeSource {

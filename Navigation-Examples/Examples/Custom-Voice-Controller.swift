@@ -49,9 +49,9 @@ class CustomVoiceController: MapboxVoiceController {
     let straight = NSDataAsset(name: "continuestraight")!.data
     
     override func didPassSpokenInstructionPoint(notification: NSNotification) {
-        let routeProgress = notification.userInfo![RouteControllerNotificationUserInfoKey.routeProgressKey] as! RouteProgress
+        let routeProgress = notification.userInfo![RouteController.NotificationUserInfoKey.routeProgressKey] as! RouteProgress
         let soundForInstruction = audio(for: routeProgress.currentLegProgress.currentStep)
-        let instruction = notification.userInfo![RouteControllerNotificationUserInfoKey.spokenInstructionKey] as! SpokenInstruction
+        let instruction = notification.userInfo![RouteController.NotificationUserInfoKey.spokenInstructionKey] as! SpokenInstruction
         play(instruction: instruction, data: soundForInstruction)
     }
     
